@@ -131,13 +131,25 @@
     <TextView
         android:id="@+id/scenarioText"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="100dp"
         android:layout_margin="10dp"
         android:layout_weight="1.5"
         android:text="scenario Text"
         android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/contentLinearLayout"/>
+
+    <TextView
+        android:id="@+id/timerText"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1.5"
+        android:gravity="center"
+        android:text="Timer Text"
+        android:textSize="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scenarioText"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

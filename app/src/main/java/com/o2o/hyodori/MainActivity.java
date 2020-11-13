@@ -3,6 +3,8 @@ package com.o2o.hyodori;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,8 @@ import com.o2o.hyodori.interfaces.DialogflowBotReply;
 import com.o2o.hyodori.utils.SendMessageInBg;
 
 import java.io.InputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements DialogflowBotReply {
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
     private Button alramButton;
     private TextView scenarioTextView;
     private TextView textView;
+    private TextView timerTextView;
     private EditText editText;
     private Button button;
 
@@ -47,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
 
     private String command="default";
 
+    private int cntTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
         alramButton =findViewById(R.id.alramButton);
         scenarioTextView = findViewById(R.id.scenarioText);
         textView=findViewById(R.id.responseText);
+        timerTextView=findViewById(R.id.timerText);
         editText=findViewById(R.id.editText1);
         button=findViewById(R.id.button1);
 
@@ -98,10 +106,31 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
         alramButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                setCommand("alram");
-                Toast.makeText(MainActivity.this, "따르릉~ 알람시간이 되었습니다. 알람 쿼리를 가져옵니다!", Toast.LENGTH_SHORT).show();
-                scenarioTextView.setText("\"알람 7시\"라고 보냄");
-                sendMessageToBot("알람 7시");
+                Timer timer = new Timer();
+                TimerTask timerTask = new TimerTask(){
+                    public void run(){
+                        timerTextView.setText(Integer.toString(cntTime--));
+                        if(cntTime==0){
+                            setCommand("alram");
+                            //main Thread에서만 UI 작업을 할 수 있으므로 Handler설정
+                            boolean handler = new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //UI THREAD CODE HERE
+                                    Toast.makeText(MainActivity.this, "따르릉~ 알람시간이 되었습니다. 알람 쿼리를 가져옵니다!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            scenarioTextView.setText("\"알람 7시\"라고 보냄");
+                            sendMessageToBot("알람 7시");
+                            this.cancel();
+                            timerTextView.setText("Timer Text");
+
+                        }
+                    }
+                };
+                timer.schedule(timerTask,0,1000);
+                cntTime = 5;
+                Toast.makeText(MainActivity.this, "임의로 5초뒤로 알람을 세팅합니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
