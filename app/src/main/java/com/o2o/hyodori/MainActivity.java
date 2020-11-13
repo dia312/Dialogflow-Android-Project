@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
         setUpBot();
     }
 
+    //credential(GoogleService 자격 증명서) 파일을 통해 session 설정
     private void setUpBot() {
         try {
             InputStream stream = this.getResources().openRawResource(R.raw.credential);
