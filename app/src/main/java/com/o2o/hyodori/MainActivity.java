@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
     private String uuid = UUID.randomUUID().toString(); //식별자
     private String TAG = "mainactivity"; //Tag 명
 
+
+    private String command="default";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                //command 를 default로 설정
+                setCommand("default");
+
                 String message = editText.getText().toString();
                 if (!message.isEmpty()) {
                     //UI or something to do Task
@@ -74,19 +80,28 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
         basicButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                
+                setCommand("basic");
+                Toast.makeText(MainActivity.this, "오늘 날씨 어떠냐구 물어봅니다.", Toast.LENGTH_SHORT).show();
+                scenarioTextView.setText("\"오늘 날씨 어때\"라고 보냄");
+                sendMessageToBot("오늘 날씨 어때");
             }
         });
         followUpButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                setCommand("followup");
+                Toast.makeText(MainActivity.this, "대화를 2번 이상 진행 합니다.", Toast.LENGTH_SHORT).show();
+                scenarioTextView.setText("\"점심 추천해줘\"라고 보냄");
+                sendMessageToBot("점심 추천해줘");
             }
         });
         alramButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                setCommand("alram");
+                Toast.makeText(MainActivity.this, "따르릉~ 알람시간이 되었습니다. 알람 쿼리를 가져옵니다!", Toast.LENGTH_SHORT).show();
+                scenarioTextView.setText("\"알람 7시\"라고 보냄");
+                sendMessageToBot("알람 7시");
             }
         });
 
@@ -122,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
     }
 
     @Override
-    public void callback(DetectIntentResponse returnResponse) {
+    public void callback(DetectIntentResponse returnResponse){
         //dialogflowAgent와 통신 성공한 경우
         if (returnResponse != null) {
             String dialogflowBotReply = returnResponse.getQueryResult().getFulfillmentText();
@@ -130,7 +145,28 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
             //getFulfillmentText가 있을 경우
             if (!dialogflowBotReply.isEmpty()) {
                 //UI or something to do Task
-                textView.setText(dialogflowBotReply);
+                switch(command){
+                    case "basic":
+                        scenarioTextView.setText(scenarioTextView.getText()+"\n답장: "+dialogflowBotReply);
+                        break;
+                    case "followup":
+                        scenarioTextView.setText(scenarioTextView.getText()+"\n답장: "+dialogflowBotReply);
+                        scenarioTextView.setText(scenarioTextView.getText()+"\n\"중국집 메뉴 알려줘\"라고 보냄");
+                        sendMessageToBot("중국집 메뉴 알려줘");
+                        setCommand("followup2");
+                        break;
+                    case "followup2":
+                        scenarioTextView.setText(scenarioTextView.getText()+"\n답장: "+dialogflowBotReply);
+                        break;
+                    case "alram":
+                        scenarioTextView.setText(scenarioTextView.getText()+"\n답장: "+dialogflowBotReply);
+                        break;
+                    default:
+                        //scenarioTextView.setText(scenarioTextView.getText()+"\n답장: "+dialogflowBotReply);
+                        textView.setText(dialogflowBotReply);
+                        break;
+                }
+
             }
             else {
                 Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
@@ -140,4 +176,9 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
             Toast.makeText(this, "failed to connect!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void setCommand(String command) {
+        this.command = command;
+    }
+
 }
