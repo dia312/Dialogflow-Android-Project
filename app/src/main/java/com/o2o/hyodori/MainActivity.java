@@ -28,9 +28,15 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements DialogflowBotReply {
 
+    //ui component
+    private Button basicButton;
+    private Button followUpButton;
+    private Button alramButton;
+    private TextView scenarioTextView;
     private TextView textView;
     private EditText editText;
     private Button button;
+
 
     //dialogFlow
     private SessionsClient sessionsClient; // 세션 클라이언트
@@ -42,7 +48,11 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView=findViewById(R.id.text1);
+        basicButton = findViewById(R.id.basicButton);
+        followUpButton =findViewById(R.id.followUpButton);
+        alramButton =findViewById(R.id.alramButton);
+        scenarioTextView = findViewById(R.id.scenarioText);
+        textView=findViewById(R.id.responseText);
         editText=findViewById(R.id.editText1);
         button=findViewById(R.id.button1);
 
@@ -61,6 +71,25 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
                 }
             }
         });
+        basicButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+        followUpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        alramButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         //dialogflowAgent key정보 Setup
         setUpBot();
     }
