@@ -135,7 +135,7 @@
         <TextView
             android:id="@+id/responseText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1.5"
             android:text="Response Text" />
