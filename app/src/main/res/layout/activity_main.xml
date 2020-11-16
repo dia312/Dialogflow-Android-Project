@@ -47,6 +47,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleLinearLayout">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/voice_btn"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:layout_height="40dp"
+            android:layout_width="40dp"
+            app:lottie_rawRes="@raw/voice_animation"/>
         <EditText
             android:id="@+id/editText1"
             android:layout_width="wrap_content"
@@ -56,7 +63,8 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_width="50dp"
             android:layout_height="32dp"
             android:background="#FF7F00"
             android:shadowColor="#000000"

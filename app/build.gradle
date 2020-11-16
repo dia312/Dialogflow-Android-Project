@@ -42,4 +42,7 @@ dependencies {
     //dialogFlow
     implementation 'com.google.cloud:google-cloud-dialogflow:2.1.0'
     implementation 'io.grpc:grpc-okhttp:1.30.0'
+
+    //lottie Library
+    implementation "com.airbnb.android:lottie:3.4.1"
 }

@@ -3,6 +3,7 @@
     package="com.o2o.hyodori">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
 
     <application
