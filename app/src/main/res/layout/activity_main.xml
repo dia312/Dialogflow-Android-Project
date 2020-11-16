@@ -83,7 +83,7 @@
 
         <LinearLayout
             android:id="@+id/buttonLinearLayout"
-            android:layout_width="40dp"
+            android:layout_width="10dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -95,7 +95,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:background="#FF7F52"
-                android:text="물어보기"
+                android:text="물어\n보기"
                 android:textColor="#ffffff"
                 ></Button>
 
@@ -106,7 +106,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:background="#FF7Ff2"
-                android:text="대화 하기"
+                android:text="대화\n하기"
                 android:textColor="#ffffff"
                 ></Button>
 
@@ -117,7 +117,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:background="#1Fa30f"
-                android:text="알람 받기"
+                android:text="알람\n받기"
                 android:textColor="#ffffff"
                 ></Button>
         </LinearLayout>
