@@ -120,6 +120,17 @@
                 android:text="알람\n받기"
                 android:textColor="#ffffff"
                 ></Button>
+
+            <Button
+                android:id="@+id/quizButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:background="#e62246"
+                android:text="퀴즈\n하기"
+                android:textColor="#ffffff"
+                ></Button>
         </LinearLayout>
 
         <TextView
@@ -145,7 +156,7 @@
     <TextView
         android:id="@+id/scenarioText"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         android:layout_margin="10dp"
         android:layout_weight="1.5"
         android:text="scenario Text"
@@ -163,7 +174,7 @@
         android:text="Timer Text"
         android:textSize="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scenarioText"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
     private Button basicButton;
     private Button followUpButton;
     private Button alramButton;
+    private Button quizButton;
+
     private TextView scenarioTextView;
     private TextView textView;
     private TextView timerTextView;
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
         basicButton = findViewById(R.id.basicButton);
         followUpButton = findViewById(R.id.followUpButton);
         alramButton = findViewById(R.id.alramButton);
+        quizButton = findViewById(R.id.quizButton);
         scenarioTextView = findViewById(R.id.scenarioText);
         textView = findViewById(R.id.responseText);
         timerTextView = findViewById(R.id.timerText);
@@ -236,7 +239,6 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
             }
             });
         basicButton.setOnClickListener(new View.OnClickListener()
-
             {
                 @Override
                 public void onClick (View v){
@@ -247,7 +249,6 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
             }
             });
         followUpButton.setOnClickListener(new View.OnClickListener()
-
             {
                 @Override
                 public void onClick (View v){
@@ -258,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
             }
             });
         alramButton.setOnClickListener(new View.OnClickListener()
-
             {
                 @Override
                 public void onClick (View v){
@@ -290,6 +290,16 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
                 Toast.makeText(MainActivity.this, "임의로 5초뒤로 알람을 세팅합니다.", Toast.LENGTH_SHORT).show();
             }
             });
+        quizButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v){
+                setCommand("quiz");
+                Toast.makeText(MainActivity.this, "퀴즈 진행 합니다.", Toast.LENGTH_SHORT).show();
+                scenarioTextView.setText("퀴즈 시작\n");
+                sendMessageToBot("B006");
+            }
+        });
 
             //dialogflowAgent key정보 Setup
             setUpBot();
@@ -345,6 +355,23 @@ public class MainActivity extends AppCompatActivity implements DialogflowBotRepl
                             scenarioTextView.setText(scenarioTextView.getText() + "\n답장: " + dialogflowBotReply);
                             break;
                         case "alram":
+                            scenarioTextView.setText(scenarioTextView.getText() + "\n답장: " + dialogflowBotReply);
+                            break;
+                        case "quiz":
+                            scenarioTextView.setText(scenarioTextView.getText() + "\n퀴즈: " + dialogflowBotReply);
+                            scenarioTextView.setText(scenarioTextView.getText() + "\n88년");
+                            sendMessageToBot("88년");
+                            setCommand("quiz2");
+                            break;
+                        case "quiz2":
+                            scenarioTextView.setText(scenarioTextView.getText() + "\n답장: " + dialogflowBotReply);
+                            if(dialogflowBotReply.contains("마스코트")){
+                                scenarioTextView.setText(scenarioTextView.getText() + "\n호돌이");
+                                sendMessageToBot("호돌이");
+                                setCommand("quiz3");
+                            }
+                            break;
+                        case "quiz3":
                             scenarioTextView.setText(scenarioTextView.getText() + "\n답장: " + dialogflowBotReply);
                             break;
                         default:
